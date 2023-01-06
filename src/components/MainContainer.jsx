@@ -1,5 +1,11 @@
+import HomeContainer from './HomeContainer'
+
 function MainContainer() {
-  return <div>MainContainer</div>
+  return (
+    <div className='flex w-full h-auto flex-col items-center justify-center'>
+      <HomeContainer />
+    </div>
+  )
 }
 
 export default MainContainer
