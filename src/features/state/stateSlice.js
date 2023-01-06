@@ -6,42 +6,34 @@ const initialState = {
   user: JSON.parse(localStorage.getItem('user')) || null
 }
 
-export const login = createAsyncThunk('state/login', async function () {
-  return await signInWithPopup(firebaseAuth, provider).then(function (
-    response
-  ) {
-    return {
-      refreshToken: response.user.refreshToken,
-      providerData: response.user.providerData
-    }
-  })
+export const login = createAsyncThunk('state/login', async () => {
+  const {
+    user: { providerData }
+  } = await signInWithPopup(firebaseAuth, provider)
+  return providerData[0]
 })
 
 export const stateSlice = createSlice({
   name: 'state',
   initialState,
   reducers: {
-    logout(state) {
+    logout: state => {
       localStorage.clear()
       state.user = null
     }
   },
-  extraReducers(builder) {
+  extraReducers: builder => {
     builder
-      .addCase(login.fulfilled, function (state, { payload }) {
-        state.user = payload.providerData[0]
-        localStorage.setItem('user', JSON.stringify(payload.providerData[0]))
+      .addCase(login.fulfilled, (state, { payload }) => {
+        state.user = payload
+        localStorage.setItem('user', JSON.stringify(payload))
       })
-      .addCase(login.rejected, function (state, { error }) {
-        console.log(error.message)
-      })
+      .addCase(login.rejected, (state, { error }) => console.log(error.message))
   }
 })
 
 export const { logout } = stateSlice.actions
 
-export function getUser(state) {
-  return state.state.user
-}
+export const getUser = state => state.state.user
 
 export default stateSlice.reducer

@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import { CreateContainer, Header, MainContainer } from './components'
 import { AnimatePresence } from 'framer-motion'
 
-function App() {
+const App = () => {
   return (
     <AnimatePresence mode='wait'>
       <div className='w-screen h-auto flex flex-col bg-primary'>

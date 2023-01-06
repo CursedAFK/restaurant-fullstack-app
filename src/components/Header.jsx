@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getUser, login, logout } from '../features/state/stateSlice'
 import { useState } from 'react'
 
-function Header() {
+const Header = () => {
   const [isMenu, setIsMenu] = useState(false)
 
   const dispatch = useDispatch()
@@ -15,7 +15,7 @@ function Header() {
   const user = useSelector(getUser)
 
   return (
-    <header className='fixed w-screen z-50 p-3 px-4 md:p-6 md:px-16 bg-primary shadow-sm'>
+    <header className='fixed w-screen z-50 p-3 px-4 md:p-6 md:px-16 bg-primary'>
       <div className='hidden md:flex w-full h-full items-center justify-between'>
         <Link to='/' className='flex items-center gap-2'>
           <img src={Logo} alt='logo' className='w-10 object-contain' />
@@ -30,19 +30,31 @@ function Header() {
             exit={{ opacity: 0, x: 200 }}
             className='flex items-center gap-8'
           >
-            <li className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer'>
+            <li
+              className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer'
+              onClick={() => setIsMenu(false)}
+            >
               Home
             </li>
 
-            <li className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer'>
+            <li
+              className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer'
+              onClick={() => setIsMenu(false)}
+            >
               Menu
             </li>
 
-            <li className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer'>
+            <li
+              className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer'
+              onClick={() => setIsMenu(false)}
+            >
               About Us
             </li>
 
-            <li className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer'>
+            <li
+              className='text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer'
+              onClick={() => setIsMenu(false)}
+            >
               Service
             </li>
           </motion.ul>
@@ -57,13 +69,9 @@ function Header() {
 
           <div className='relative'>
             <motion.img
-              onClick={function () {
-                return !user
-                  ? dispatch(login())
-                  : setIsMenu(function (prev) {
-                      return !prev
-                    })
-              }}
+              onClick={() =>
+                !user ? dispatch(login()) : setIsMenu(prev => !prev)
+              }
               whileTap={{ scale: 0.6 }}
               src={user ? user.photoURL : Avatar}
               alt='user-profile'
@@ -79,7 +87,10 @@ function Header() {
               >
                 {user && user.email === 'lasisiolalekan081@gmail.com' && (
                   <Link to='/createItem'>
-                    <p className='px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base'>
+                    <p
+                      className='px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base'
+                      onClick={() => setIsMenu(false)}
+                    >
                       New Item <MdAdd />
                     </p>
                   </Link>
@@ -87,9 +98,9 @@ function Header() {
 
                 <p
                   className='px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base'
-                  onClick={function () {
+                  onClick={() => {
                     setIsMenu(false)
-                    return dispatch(logout())
+                    dispatch(logout())
                   }}
                 >
                   Logout <MdLogout />
@@ -117,13 +128,9 @@ function Header() {
 
         <div className='relative'>
           <motion.img
-            onClick={function () {
-              return !user
-                ? dispatch(login())
-                : setIsMenu(function (prev) {
-                    return !prev
-                  })
-            }}
+            onClick={() =>
+              !user ? dispatch(login()) : setIsMenu(prev => !prev)
+            }
             whileTap={{ scale: 0.6 }}
             src={user ? user.photoURL : Avatar}
             alt='user-profile'
@@ -139,35 +146,50 @@ function Header() {
             >
               {user && user.email === 'lasisiolalekan081@gmail.com' && (
                 <Link to='/createItem'>
-                  <p className='px-4 py-2 flex items-center cursor-pointer active:bg-slate-300 transition-all duration-100 ease-in-out text-textColor text-base'>
+                  <p
+                    className='px-4 py-2 flex items-center cursor-pointer active:bg-slate-300 transition-all duration-100 ease-in-out text-textColor text-base'
+                    onClick={() => setIsMenu(false)}
+                  >
                     New Item <MdAdd />
                   </p>
                 </Link>
               )}
 
               <ul className='flex flex-col'>
-                <li className='text-base text-textColor hover:text-headingColor duration-100 active:bg-slate-300 px-4 py-2 transition-all ease-in-out cursor-pointer'>
+                <li
+                  className='text-base text-textColor hover:text-headingColor duration-100 active:bg-slate-300 px-4 py-2 transition-all ease-in-out cursor-pointer'
+                  onClick={() => setIsMenu(false)}
+                >
                   Home
                 </li>
 
-                <li className='text-base text-textColor hover:text-headingColor duration-100 active:bg-slate-300 px-4 py-2 transition-all ease-in-out cursor-pointer'>
+                <li
+                  className='text-base text-textColor hover:text-headingColor duration-100 active:bg-slate-300 px-4 py-2 transition-all ease-in-out cursor-pointer'
+                  onClick={() => setIsMenu(false)}
+                >
                   Menu
                 </li>
 
-                <li className='text-base text-textColor hover:text-headingColor duration-100 active:bg-slate-300 px-4 py-2 transition-all ease-in-out cursor-pointer'>
+                <li
+                  className='text-base text-textColor hover:text-headingColor duration-100 active:bg-slate-300 px-4 py-2 transition-all ease-in-out cursor-pointer'
+                  onClick={() => setIsMenu(false)}
+                >
                   About Us
                 </li>
 
-                <li className='text-base text-textColor hover:text-headingColor duration-100 active:bg-slate-300 px-4 py-2 transition-all ease-in-out cursor-pointer'>
+                <li
+                  className='text-base text-textColor hover:text-headingColor duration-100 active:bg-slate-300 px-4 py-2 transition-all ease-in-out cursor-pointer'
+                  onClick={() => setIsMenu(false)}
+                >
                   Service
                 </li>
               </ul>
 
               <p
                 className='m-2 p-2 rounded-md shadow-md flex items-center gap-3 cursor-pointer active:bg-slate-300 transition-all duration-100 ease-in-out text-textColor text-base justify-center bg-gray-200'
-                onClick={function () {
+                onClick={() => {
                   setIsMenu(false)
-                  return dispatch(logout())
+                  dispatch(logout())
                 }}
               >
                 Logout <MdLogout />
